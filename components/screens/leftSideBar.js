@@ -9,11 +9,7 @@ export default function LeftSideBar(props) {
   let isThereNotifications = useSelector((state) => state.notifications.unread);
   const userInfo = useSelector((state) => state.user.value);
   const profileImage = useSelector((state) => state.user.profile_image);
- useEffect(() => {
-   if (!isLoggedIn) {
-     router.push("/");
-   }
- },[isLoggedIn]);
+
   return (
     <>
       <div className="hidden md:block h-screen sticky top-0 border-r z-40 border-gray-800 w-32 overflow-hidden lg:w-1/4 xl:w-2/6">

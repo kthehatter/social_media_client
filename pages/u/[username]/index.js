@@ -31,11 +31,11 @@ export default function UserProfile() {
         })
         .catch((err) => {
             console.log(err.response);
-          router.push("/");
+          router.push("/404");
         });
     } catch (err) {
       console.log(err);
-      router.push("/");
+      router.push("/404");
     }
   };
   useEffect(() => {
