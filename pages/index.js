@@ -4,8 +4,16 @@ import BottomNavigationBar from "../components/screens/bottomNavigationBar";
 import RightSideBar from "../components/screens/rightSideBar";
 import PostsList from "../components/screens/postsList";
 import LeftSideBar from "../components/screens/leftSideBar";
+import { useEffect } from "react";
+import { useRouter } from "next/router";
 export default function Home() {
-
+  const router = useRouter();
+  let isLoggedIn = useSelector((state) => state.user.isLoggedIn);
+  useEffect(() => {
+    if (!isLoggedIn) {
+      router.push("/u/login");
+    }
+  }, [isLoggedIn]);
   return (
     <div className="relative bg-dark_one">
       <div className=" flex justify-center   w-full">
