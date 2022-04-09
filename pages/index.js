@@ -5,7 +5,6 @@ import RightSideBar from "../components/screens/rightSideBar";
 import PostsList from "../components/screens/postsList";
 import LeftSideBar from "../components/screens/leftSideBar";
 export default function Home() {
-
   return (
     <div className="relative bg-dark_one">
       <div className=" flex justify-center   w-full">

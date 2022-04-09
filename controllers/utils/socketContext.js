@@ -23,7 +23,6 @@ const ContextProvider = ({ children }) => {
   const recievedVideo = useRef();
   const connectionRef = useRef();
   const verifyUser = async () => {
-    console.log("router path",router.pathname);
     try {
       await userTokenValidationApiCall()
         .then((res) => {

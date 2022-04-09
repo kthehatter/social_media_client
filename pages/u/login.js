@@ -33,7 +33,8 @@ export default function LoginPage(props) {
             localStorage.setItem("accessToken", res.data.accessToken);
             toast.success("Login successfully");
             dispatch(setUserInfo(res.data.user));
-            dispatch(setUserProfilePicture(res.data.user.profile_picture));
+            dispatch(setUserProfilePicture(res.data.profile_picture));
+            dispatch(setUserLoggedIn(true));
             router.push("/");
           } else {
             toast.error(res);
