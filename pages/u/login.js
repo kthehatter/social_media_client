@@ -36,7 +36,7 @@ export default function LoginPage(props) {
             dispatch(setUserProfilePicture(res.data.user.profile_picture));
             router.push("/");
           } else {
-            toast.error(res.data.message);
+            toast.error(res);
           }
         })
         .catch((err) => {

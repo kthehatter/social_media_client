@@ -1,2 +1,2 @@
 //export const domainURL = 'https://podpuffin.com';
-export const domainURL = process.env.FRONTEND_URL;
+export const domainURL = "https://social.khalilay.com";

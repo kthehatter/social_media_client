@@ -6,6 +6,7 @@ console.log(domainURL);
 const authBaseURL = domainURL + "/api/authentication/"
 export const userLoginApiCall = async (body) => {
   const accessPoint = authBaseURL+"user/login";
+  console.log('accessPoint',accessPoint);
   return await axios
     .post(accessPoint, body)
     .then((res) => {

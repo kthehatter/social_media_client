@@ -1,8 +1,10 @@
 import { createContext, useState, useRef, useEffect } from "react";
 import Peer from "simple-peer";
+import { userTokenValidationApiCall } from "../screens/user/Auth";
 const SocketContext = createContext();
 import socket from "./Socket";
 const ContextProvider = ({ children }) => {
+  const [userIsLoggedIn, setUserIsLoggedIn] = useState(true);
   const [callerInfo, setCallerInfo] = useState(null);
   const [callerSignal, setCallerSignal] = useState(null);
   const [isReceivingCall, setIsReceivingCall] = useState(false);
@@ -18,6 +20,26 @@ const ContextProvider = ({ children }) => {
   const sentVideo = useRef();
   const recievedVideo = useRef();
   const connectionRef = useRef();
+  const verifyUser = async () => {
+    try {
+      await userTokenValidationApiCall()
+        .then((res) => {
+          if (res.status === 200) {
+            setUserIsLoggedIn(true);
+          } else {
+            setUserIsLoggedIn(false);
+
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          setUserIsLoggedIn(false);
+        });
+    } catch (err) {
+      console.log(err);
+      setUserIsLoggedIn(false);
+    }
+  };
   useEffect(() => {
     const getUserMedia = async () => {
       try {
@@ -29,6 +51,7 @@ const ContextProvider = ({ children }) => {
       }
     };
     getUserMedia();
+    verifyUser();
   }, []);
   const answerCall = () => {
     setCallAccepted(true);
@@ -96,6 +119,7 @@ const ContextProvider = ({ children }) => {
   return (
     <SocketContext.Provider
       value={{
+        userIsLoggedIn,
         notificationSound,
         setRingtone,
         setNotificationSound,
