@@ -27,6 +27,9 @@ export default function UserProfile() {
         .then((res) => {
               if (res.status === 200) {
                 dispatch(setProfileInfo(res.data.profile));
+            }else{
+          router.push("/404");
+
             }
         })
         .catch((err) => {
