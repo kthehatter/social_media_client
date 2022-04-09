@@ -4,19 +4,8 @@ import BottomNavigationBar from "../components/screens/bottomNavigationBar";
 import RightSideBar from "../components/screens/rightSideBar";
 import PostsList from "../components/screens/postsList";
 import LeftSideBar from "../components/screens/leftSideBar";
-import { useContext, useEffect } from "react";
-import { useRouter } from "next/router";
-import { useSelector } from "react-redux";
-import { SocketContext } from "../controllers/utils/socketContext";
 export default function Home() {
-  const {userIsLoggedIn } = useContext(SocketContext);
-  const router = useRouter();
-  let isLoggedIn = useSelector((state) => state.user.isLoggedIn);
-  useEffect(() => {
-    if (userIsLoggedIn === false) {
-      router.push("/u/login");
-    }
-  }, [ userIsLoggedIn]);
+
   return (
     <div className="relative bg-dark_one">
       <div className=" flex justify-center   w-full">

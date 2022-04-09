@@ -1,9 +1,11 @@
+import { useRouter } from "next/router";
 import { createContext, useState, useRef, useEffect } from "react";
 import Peer from "simple-peer";
 import { userTokenValidationApiCall } from "../screens/user/Auth";
 const SocketContext = createContext();
 import socket from "./Socket";
 const ContextProvider = ({ children }) => {
+  const router = useRouter();
   const [userIsLoggedIn, setUserIsLoggedIn] = useState(true);
   const [callerInfo, setCallerInfo] = useState(null);
   const [callerSignal, setCallerSignal] = useState(null);
@@ -21,23 +23,31 @@ const ContextProvider = ({ children }) => {
   const recievedVideo = useRef();
   const connectionRef = useRef();
   const verifyUser = async () => {
+    console.log("router path",router.pathname);
     try {
       await userTokenValidationApiCall()
         .then((res) => {
           if (res.status === 200) {
-            setUserIsLoggedIn(true);
+            if (router.pathname === "/u/login"||router.pathname === "/u/register") {
+              router.push("/");
+            }
           } else {
-            setUserIsLoggedIn(false);
-
+            if (router.pathname !== "/u/login"||router.pathname !== "/u/register") {
+              router.push("/u/login");
+            }
           }
         })
         .catch((err) => {
           console.log(err);
-          setUserIsLoggedIn(false);
+          if (router.pathname !== "/u/login"||router.pathname !== "/u/register") {
+            router.push("/u/login");
+          }
         });
     } catch (err) {
       console.log(err);
-      setUserIsLoggedIn(false);
+      if (router.pathname !== "/u/login"||router.pathname !== "/u/register") {
+        router.push("/u/login");
+      }
     }
   };
   useEffect(() => {
