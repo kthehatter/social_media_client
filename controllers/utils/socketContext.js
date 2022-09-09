@@ -50,16 +50,7 @@ const ContextProvider = ({ children }) => {
     }
   };
   useEffect(() => {
-    const getUserMedia = async () => {
-      try {
-         await navigator.mediaDevices.getUserMedia({video: true}).then((stream) => {
-          sentVideo.current.srcObject = stream;
-         });
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    getUserMedia();
+    
     verifyUser();
   }, []);
   const answerCall = () => {

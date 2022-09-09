@@ -8,7 +8,8 @@ import PostComment from "./postComments";
 import CommentsList from "./commentsList";
 import { fetchCommentsApiCall } from "../../controllers/screens/comments/fetchComments";
 import ReShareDropDown from "./reShareDropDown";
-
+import Zoom from "react-medium-image-zoom";
+import "react-medium-image-zoom/dist/styles.css";
 import isArabic from "../utils/isArabic";
 
 export default function PostContent(props) {
@@ -34,11 +35,15 @@ export default function PostContent(props) {
   const [likesNumber, setLikesNumber] = useState(
     props.postDetails.likesNumber ? props.postDetails.likesNumber : null
   );
-  const [sharesNumber, setSharesNumber] = useState(props.postDetails.sharesNumber?props.postDetails.sharesNumber:null);
+  const [sharesNumber, setSharesNumber] = useState(
+    props.postDetails.sharesNumber ? props.postDetails.sharesNumber : null
+  );
   const [commentsNumber, setCommentsNumber] = useState(
     props.postDetails.commentsNumber ? props.postDetails.commentsNumber : null
   );
-  const [isShared, setIsShared] = useState(props.postDetails.isShared?props.postDetails.isShared:false);
+  const [isShared, setIsShared] = useState(
+    props.postDetails.isShared ? props.postDetails.isShared : false
+  );
   const [showComments, setShowComments] = useState(false);
   const [textRTL, setTextRTL] = useState(
     props.postDetails.description
@@ -55,7 +60,10 @@ export default function PostContent(props) {
         .then((res) => {
           console.log(res);
           if (res.status === 200) {
-            setCommentsList((prevState) => [...prevState, ...res.data.comments]);
+            setCommentsList((prevState) => [
+              ...prevState,
+              ...res.data.comments,
+            ]);
             setIsLoading(false);
           } else {
             setIsLoading(false);
@@ -122,6 +130,7 @@ export default function PostContent(props) {
           <div className="px-3">
             {props.postDetails.description && (
               <p
+                style={{ whiteSpace: "pre-line" }}
                 className={
                   textRTL
                     ? "text-right text-base width-auto font-medium text-white flex-shrink"
@@ -132,13 +141,15 @@ export default function PostContent(props) {
               </p>
             )}
             {postImage && (
-              <div className="relative flex justify-center pb-2/3">
-              <img
-                className="absolute bottom-0 rounded cursor-pointer h-full w-full object-cover "
-                src={postImage.optimizedImageUrl}
-                alt={props.postDetails.description}
-              />
-            </div>
+              <div className="">
+                <Zoom>
+                  <img
+                    src={postImage.optimizedImageUrl}
+                    className="rounded cursor-pointer h-full w-full object-cover "
+                    alt={props.postDetails.description}
+                  />
+                </Zoom>
+              </div>
             )}
           </div>
 
@@ -148,65 +159,65 @@ export default function PostContent(props) {
             </div>
           )}
           {props.postDetails.quoted_post && (
-        <div className=" mt-5  flex">
-        <div className="w-1/12">
-
-        </div>
-          <article className="cursor-default border border-gray-600 rounded-md py-1 w-full hover:bg-gray-800 transition duration-350 ease-in-out cursor-pointer">
-            <div className="flex flex-shrink-0 p-4 pb-0">
-              <div className="flex-shrink-0 group block">
-                <div className="flex items-center">
-                  <div>
-                    <img
-                      className="inline-block h-10 w-10 rounded-full"
-                      src={props.postDetails.quoted_post.user_picture}
-                      alt=""
-                    />
-                  </div>
-                  <div className="ml-3 ">
-                    <p className="text-base leading-6 font-medium text-white">
-                      {props.postDetails.quoted_post.user_name}
-                      <span className="text-sm leading-5 font-medium text-gray-400 transition ease-in-out duration-150">
-                        @{props.postDetails.quoted_post.username} .{" "}
-                        {format(props.postDetails.quoted_post.created_at)}
-                      </span>
-                    </p>
+            <div className=" mt-5  flex">
+              <div className="w-1/12"></div>
+              <article className="cursor-default border border-gray-600 rounded-md py-1 w-full hover:bg-gray-800 transition duration-350 ease-in-out cursor-pointer">
+                <div className="flex flex-shrink-0 p-4 pb-0">
+                  <div className="flex-shrink-0 group block">
+                    <div className="flex items-center">
+                      <div>
+                        <img
+                          className="inline-block h-10 w-10 rounded-full"
+                          src={props.postDetails.quoted_post.user_picture}
+                          alt=""
+                        />
+                      </div>
+                      <div className="ml-3 ">
+                        <p className="text-base leading-6 font-medium text-white">
+                          {props.postDetails.quoted_post.user_name}
+                          <span className="text-sm leading-5 font-medium text-gray-400 transition ease-in-out duration-150">
+                            @{props.postDetails.quoted_post.username} .{" "}
+                            {format(props.postDetails.quoted_post.created_at)}
+                          </span>
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
 
-            <div className="py-2 px-2 mb-2 md:pl-16">
-              <div className="px-3 ">
-                {props.postDetails.quoted_post.description && (
-                  <p
-                    className={
-                      quotedTextRTL
-                        ? "text-right text-base width-auto font-medium text-white flex-shrink"
-                        : "text-left text-base width-auto font-medium text-white flex-shrink"
-                    }
-                  >
-                    <span>{props.postDetails.quoted_post.description}</span>
-                  </p>
-                )}
-                {postImageContent && (
-                  <img
-                    className="rounded cursor-pointer w-full object-cover h-80 max-h-96 flex-auto"
-                    src={postImageContent.optimizedImageUrl}
-                    alt={props.postDetails.quoted_post.description}
-                  />
-                )}
-              </div>
+                <div className="py-2 px-2 mb-2 md:pl-16">
+                  <div className="px-3 ">
+                    {props.postDetails.quoted_post.description && (
+                      <p
+                        className={
+                          quotedTextRTL
+                            ? "text-right text-base width-auto font-medium text-white flex-shrink"
+                            : "text-left text-base width-auto font-medium text-white flex-shrink"
+                        }
+                      >
+                        <span>{props.postDetails.quoted_post.description}</span>
+                      </p>
+                    )}
+                    {postImageContent && (
+                      <Zoom>
+                        <img
+                          className="rounded cursor-pointer w-full object-cover h-80 max-h-96 flex-auto"
+                          src={postImageContent.optimizedImageUrl}
+                          alt={props.postDetails.quoted_post.description}
+                        />
+                      </Zoom>
+                    )}
+                  </div>
 
-              {props.postDetails.videos && (
-                <div className="md:flex-shrink pr-0 md:pr-6 pt-3">
-                  <VideoPlayer src={props.postDetails.quoted_post.videos} />
+                  {props.postDetails.videos && (
+                    <div className="md:flex-shrink pr-0 md:pr-6 pt-3">
+                      <VideoPlayer src={props.postDetails.quoted_post.videos} />
+                    </div>
+                  )}
                 </div>
-              )}
+              </article>
             </div>
-          </article>
-        </div>
-      )}
+          )}
 
           <div className="flex items-center py-4">
             <button
@@ -237,8 +248,15 @@ export default function PostContent(props) {
               </svg>
               {commentsNumber}
             </button>
-            <ReShareDropDown isLast={props.isLast} postDetails={props.postDetails} setIsShared={setIsShared} isShared={isShared} setSharesNumber={setSharesNumber} sharesNumber={sharesNumber}/>
-            
+            <ReShareDropDown
+              isLast={props.isLast}
+              postDetails={props.postDetails}
+              setIsShared={setIsShared}
+              isShared={isShared}
+              setSharesNumber={setSharesNumber}
+              sharesNumber={sharesNumber}
+            />
+
             <div
               onClick={() => {
                 console.log(isLoggedIn);
@@ -306,7 +324,13 @@ export default function PostContent(props) {
       </article>
       {showComments && (
         <div className="flex flex-col">
-          <PostComment  setCommentsNumber={setCommentsNumber} postOwner={props.postDetails.username} commentsList={commentsList} setCommentsList={setCommentsList} postId={props.postDetails.post_id} />
+          <PostComment
+            setCommentsNumber={setCommentsNumber}
+            postOwner={props.postDetails.username}
+            commentsList={commentsList}
+            setCommentsList={setCommentsList}
+            postId={props.postDetails.post_id}
+          />
           {commentsList && commentsList.length > 0 && (
             <CommentsList commentsList={commentsList} />
           )}
@@ -326,7 +350,6 @@ export default function PostContent(props) {
                 Show more comments
               </button>
             </div>
-
           )}
         </div>
       )}

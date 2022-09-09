@@ -14,7 +14,6 @@ export default function PostPublisher(props) {
   const [postContent, setPostContent] = useState("");
   const [postImage, setPostImage] = useState();
   const [postVideo, setPostVideo] = useState();
-  const [postImageCompressed, setPostImageCompressed] = useState(null);
   const [selectedVideoUrl, setSelectedVideoUrl] = useState(null);
   const [fileInputState, setFileInputState] = useState("");
   const onPick = async (e) => {
@@ -58,27 +57,17 @@ export default function PostPublisher(props) {
     if (size / 1024 / 1024 > 2) {
       return false;
     }
-    compress
-      .compress(files[0], {
-        size: 4,
-        quality: 0.75,
-        maxWidth: 1920,
-        maxHeight: 1920,
-        resize: true,
-      })
-      .then((data) => {
-        console.log(data);
-      });
-    reader.readAsDataURL(files[0]);
-    reader.onload = (loadEvt) => {
-      setData(loadEvt.target.result);
+      reader.readAsDataURL(files[0]);
+    reader.onload = () => {
+      setData(reader.result);
       if (type === "video/mp4") {
-        setPostVideo(loadEvt.target.result);
+        setPostVideo(reader.result);
         setSelectedVideoUrl(URL.createObjectURL(files[0]));
       } else {
-        setPostImage(loadEvt.target.result);
+        setPostImage(reader.result);
+        console.log(type);
       }
-    };
+    }
   };
   const uploadPost = async () => {
     setIsUploading(true);
