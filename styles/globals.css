@@ -2,59 +2,81 @@
 @tailwind components;
 @tailwind utilities;
 
-
+.custom-zoom [data-rmiz-modal-overlay],
+.custom-zoom [data-rmiz-modal-img] {
+  transition-duration: 0.4s;
+  transition-timing-function: linear;
+}
+.custom-zoom [data-rmiz-modal-overlay="hidden"] {
+  background-color: rgb(56, 58, 89, 0);
+}
+.custom-zoom [data-rmiz-modal-overlay="visible"] {
+  background-color: #15202b;
+  opacity: 0.8;
+}
+.custom-zoom [data-rmiz-btn-unzoom] {
+  background-color: #6c99f4;
+  color: #000;
+}
+.custom-zoom [data-rmiz-btn-unzoom]:focus-visible {
+  outline-offset: 0.4rem;
+  outline: 0.2rem solid #15202b;
+}
 .hover\:w-64:hover {
   width: 45%;
-  }
-  ::-webkit-scrollbar {
-    width: 8px;
-    height: 2px;
-  }
-  ::-webkit-scrollbar-button {
-    width: 0px;
-    height: 0px;
-  }
-  ::-webkit-scrollbar-thumb {
-    background: #2d3748;
-    border: 0px none #ffffff;
-    border-radius: 50px;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background: #2b6cb0;
-  }
-  ::-webkit-scrollbar-thumb:active {
-    background: #000000;
-  }
-  ::-webkit-scrollbar-track {
-    background: #1a202c;
-    border: 0px none #ffffff;
-    border-radius: 50px;
-  }
-  ::-webkit-scrollbar-track:hover {
-    background: #666666;
-  }
-  ::-webkit-scrollbar-track:active {
-    background: #333333;
-  }
-  ::-webkit-scrollbar-corner {
-    background: transparent;
-  }
-.heart {
-    cursor: pointer;
-    background-image:url( 'https://res.cloudinary.com/khalilay/image/upload/v1647454764/Social%20media/g/web_heart_animation_kvttvs.png');
-    background-size: cover;
-    background-repeat:no-repeat;
-    background-position: left;
-    background-size:2900%;
-   
-  }
-  .is_animating {
-    animation: heart-burst .8s steps(28) 1;
-  }
-  .is-liked{
-    background-position: right;
 }
-  @keyframes heart-burst {
-    from {background-position:left;}
-    to { background-position:right;}
-  }  
+::-webkit-scrollbar {
+  width: 8px;
+  height: 2px;
+}
+::-webkit-scrollbar-button {
+  width: 0px;
+  height: 0px;
+}
+::-webkit-scrollbar-thumb {
+  background: #2d3748;
+  border: 0px none #ffffff;
+  border-radius: 50px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #2b6cb0;
+}
+::-webkit-scrollbar-thumb:active {
+  background: #000000;
+}
+::-webkit-scrollbar-track {
+  background: #1a202c;
+  border: 0px none #ffffff;
+  border-radius: 50px;
+}
+::-webkit-scrollbar-track:hover {
+  background: #666666;
+}
+::-webkit-scrollbar-track:active {
+  background: #333333;
+}
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+.heart {
+  cursor: pointer;
+  background-image: url("https://res.cloudinary.com/khalilay/image/upload/v1647454764/Social%20media/g/web_heart_animation_kvttvs.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: left;
+  background-size: 2900%;
+}
+.is_animating {
+  animation: heart-burst 0.8s steps(28) 1;
+}
+.is-liked {
+  background-position: right;
+}
+@keyframes heart-burst {
+  from {
+    background-position: left;
+  }
+  to {
+    background-position: right;
+  }
+}

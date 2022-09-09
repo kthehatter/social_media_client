@@ -141,7 +141,7 @@ export default function PostContent(props) {
               </p>
             )}
             {postImage && (
-              <div className="">
+              <div className="custom-zoom">
                 <Zoom>
                   <img
                     src={postImage.optimizedImageUrl}
@@ -199,13 +199,15 @@ export default function PostContent(props) {
                       </p>
                     )}
                     {postImageContent && (
-                      <Zoom>
-                        <img
-                          className="rounded cursor-pointer w-full object-cover h-80 max-h-96 flex-auto"
-                          src={postImageContent.optimizedImageUrl}
-                          alt={props.postDetails.quoted_post.description}
-                        />
-                      </Zoom>
+                      <div className="custom-zoom">
+                        <Zoom>
+                          <img
+                            className="rounded cursor-pointer w-full object-cover h-80 max-h-96 flex-auto"
+                            src={postImageContent.optimizedImageUrl}
+                            alt={props.postDetails.quoted_post.description}
+                          />
+                        </Zoom>
+                      </div>
                     )}
                   </div>
 
